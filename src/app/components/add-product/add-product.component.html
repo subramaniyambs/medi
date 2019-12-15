@@ -35,14 +35,31 @@
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Product name" formControlName="product_name">
                     <mat-error *ngIf="handleError('product_name', 'required')">
-                        You must provide a<strong>product name</strong>
+                        You must provide a<strong> product name</strong>
+                    </mat-error>
+                </mat-form-field>    
+                <mat-form-field>
+                    <mat-label>Type</mat-label>
+                    <mat-select [(value)]="selected" formControlName="type">
+                        <mat-option [value]="typeArray" *ngFor="let typeArray of typesProduct">{{typeArray}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('type', 'required')">
+                        Type is required
+                    </mat-error>
+                </mat-form-field>            
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Quantity" formControlName="quantity">
+                    <mat-error *ngIf="handleError('quantity', 'required')">
+                        You must provide a<strong> quantity</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Price" formControlName="price">
                     <mat-error *ngIf="handleError('price', 'required')">
-                        You must provide a<strong>price</strong>
+                        You must provide a<strong> price</strong>
                     </mat-error>
                 </mat-form-field>
 
@@ -55,16 +72,7 @@
                 </mat-form-field> -->
 
                 <!-- Section -->
-                <!-- <mat-form-field>
-                    <mat-label>Section</mat-label>
-                    <mat-select [(value)]="selected" formControlName="section">
-                        <mat-option [value]="sectioinArray" *ngFor="let sectioinArray of SectioinArray">{{sectioinArray}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="handleError('section', 'required')">
-                        Section is required
-                    </mat-error>
-                </mat-form-field> -->
+               
             </div>
         </mat-card>
 

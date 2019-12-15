@@ -7,24 +7,28 @@ let Product = require('../models/product');
 
 // Add Product
 productRoute.route('/add-product').post((req, res, next) => {
-    console.log("add-product")
+    console.log("add-product",req.body)
     Product.create(req.body, (error, data) => {
         if (error) {
             return next(error)
         } else {
+            console.log("test")
             res.json(data)
         }
     })
 });
 
 // Get all Product
-productRoute.route('/').get((req, res) => {
+productRoute.route('/getAllProducts').get((req, res) => {
+    // let arr = [{product_name: "test", price: "20", quantity: "33" , type:"Tablets"},
+    // {product_name: "test", price: "20", quantity: "33", type:"Tablets"},
+    // {product_name: "test", price: "20", quantity: "33", type:"Tablets"}]
+    // res.json({ data: arr })
     Product.find((error, data) => {
         if (error) {
             return next(error)
         } else {
-            res.json({ msg: "hello" })
-                //res.json(data)
+            res.json(data)
         }
     })
 })
@@ -32,6 +36,23 @@ productRoute.route('/').get((req, res) => {
 // Get single Product
 productRoute.route('/read-product/:id').get((req, res) => {
     Product.findById(req.params.id, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+
+// Get type Product list
+productRoute.route('/typeMedi/:type').get((req, res) => {
+    console.log(req.params.type)
+    // let arr = [{name: 'Bank A (Switzerland)', id: 'A'},
+    // {name: 'Bank B (Switzerland)', id: 'B'},
+    // {name: 'Bank C (France)', id: 'C'}]
+    // res.json({ data: arr })
+    Product.find({type:req.params.type}, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -58,6 +79,7 @@ productRoute.route('/update-product/:id').put((req, res, next) => {
 
 // Delete Product
 productRoute.route('/delete-product/:id').delete((req, res, next) => {
+    console.log("delete",req.params.id)
     Product.findByIdAndRemove(req.params.id, (error, data) => {
         if (error) {
             return next(error);

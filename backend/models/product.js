@@ -3,7 +3,13 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema
 let Product = new Schema({
-    name: {
+    product_name: {
+        type: String
+    },
+    price: {
+        type: String
+    },
+    quantity: {
         type: String
     },
     type: {

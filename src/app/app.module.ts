@@ -7,29 +7,37 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { ListProductComponent } from './components/list-product/list-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 /* Angular material */
 import { AngularMaterialModule } from './material.module';
 import { ApiService } from './shared/api.service';
+import { PurchaseOrderComponent } from './components/purchase-order/purchase-order.component';
 // import { ProductService } from './product.service';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {NgxPrintModule} from 'ngx-print';
 @NgModule({
   declarations: [
     AppComponent,
     AddProductComponent,
     EditProductComponent,
-    ListProductComponent
+    ListProductComponent,
+    PurchaseOrderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMatSelectSearchModule,
+    NgxPrintModule,
+    MatSnackBarModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

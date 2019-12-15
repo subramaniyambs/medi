@@ -57,7 +57,7 @@ export class AddProductComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   productForm: FormGroup;
   subjectArray: Subject[] = [];
-  SectioinArray: any = ['A', 'B', 'C', 'D', 'E'];
+  typesProduct: any = ['Tablets', 'Syrup', 'oinments'];
 
   ngOnInit() {
     this.submitBookForm();
@@ -75,7 +75,8 @@ export class AddProductComponent implements OnInit {
     this.productForm = this.fb.group({
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      // section: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
+      type: ['', [Validators.required]]
       // subjects: [this.subjectArray],
       // dob: ['', [Validators.required]],
       // gender: ['Male']
@@ -120,7 +121,9 @@ export class AddProductComponent implements OnInit {
   /* Submit book */
   submitProductForm() {
     if (this.productForm.valid) {
+      console.log(this.productForm.value)
       this.productApi.AddProduct(this.productForm.value).subscribe(res => {
+        this.productApi.notification$.next('Added Successfully');
         this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
       });
     }

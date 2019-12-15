@@ -1,15 +1,21 @@
 import { Component, ViewChild, HostListener, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { ApiService } from './shared/api.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'sankar';
+  title = 'Sankara Medical Shop';
   opened = true;
   @ViewChild('sidenav') sidenav: MatSidenav;
-
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+    this.apiService.notification$.subscribe(message => {
+      this.snackBar.open(message);
+    });
+  }
   ngOnInit() {
     console.log(window.innerWidth)
     if (window.innerWidth < 768) {

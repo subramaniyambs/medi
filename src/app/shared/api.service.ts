@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
-import { Observable, throwError } from 'rxjs';
+import { Observable,Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 
 export class ApiService {
-
+  public notification$: Subject<string> = new Subject();
   endpoint: string = 'http://localhost:4000/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -25,13 +25,24 @@ export class ApiService {
   }
 
   // Get all students
-  GetStudents() {
-    return this.http.get(`${this.endpoint}`);
+  GetProducts() {
+    return this.http.get(`${this.endpoint}/getAllProducts`);
   }
 
   // Get student
   GetStudent(id): Observable<any> {
     let API_URL = `${this.endpoint}/read-student/${id}`;
+    return this.http.get(API_URL, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
+  }
+
+
+  GetTypeMedicine(type): Observable<any> {
+    let API_URL = `${this.endpoint}/typeMedi/${type}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -49,8 +60,8 @@ export class ApiService {
   }
 
   // Delete student
-  DeleteStudent(id): Observable<any> {
-    var API_URL = `${this.endpoint}/delete-student/${id}`;
+  DeleteProduct(id): Observable<any> {
+    var API_URL = `${this.endpoint}/delete-product/${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     )
