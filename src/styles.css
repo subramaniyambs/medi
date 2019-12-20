@@ -5,6 +5,15 @@ body {
     height: 100%;
 }
 
+@media print {
+    .doNotPrint {
+        display: none !important;
+    }
+    #sidenav {
+        padding-left: 0;
+    }
+}
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;

@@ -37,7 +37,7 @@
                     <mat-error *ngIf="handleError('product_name', 'required')">
                         You must provide a<strong> product name</strong>
                     </mat-error>
-                </mat-form-field>    
+                </mat-form-field>
                 <mat-form-field>
                     <mat-label>Type</mat-label>
                     <mat-select [(value)]="selected" formControlName="type">
@@ -47,17 +47,17 @@
                     <mat-error *ngIf="handleError('type', 'required')">
                         Type is required
                     </mat-error>
-                </mat-form-field>            
+                </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Quantity" formControlName="quantity">
+                    <input type="number" matInput placeholder="Quantity" formControlName="quantity">
                     <mat-error *ngIf="handleError('quantity', 'required')">
                         You must provide a<strong> quantity</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Price" formControlName="price">
+                    <input type="number" matInput placeholder="Price" formControlName="price">
                     <mat-error *ngIf="handleError('price', 'required')">
                         You must provide a<strong> price</strong>
                     </mat-error>
@@ -72,7 +72,7 @@
                 </mat-form-field> -->
 
                 <!-- Section -->
-               
+
             </div>
         </mat-card>
 

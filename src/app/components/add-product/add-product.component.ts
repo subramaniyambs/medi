@@ -57,7 +57,7 @@ export class AddProductComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   productForm: FormGroup;
   subjectArray: Subject[] = [];
-  typesProduct: any = ['Tablets', 'Syrup', 'oinments'];
+  typesProduct: any = ['Tablets', 'Syrup', 'Capsule','oinments'];
 
   ngOnInit() {
     this.submitBookForm();

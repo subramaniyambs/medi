@@ -1,3 +1,59 @@
-<p>
-  edit-product works!
-</p>
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Edit Product</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- Form -->
+<div class="inner-wrapper">
+    <form [formGroup]="productForm" (ngSubmit)="submitProductForm()" #resetProductForm="ngForm" novalidate>
+        <!-- Left block -->
+        <mat-card>
+            <div class="controlers-wrapper">
+                <!-- Name -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Product name" formControlName="product_name">
+                    <mat-error *ngIf="handleError('product_name', 'required')">
+                        You must provide a<strong> product name</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Type</mat-label>
+                    <mat-select [(value)]="selected" formControlName="type">
+                        <mat-option [value]="typeArray" *ngFor="let typeArray of typesProduct">{{typeArray}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="handleError('type', 'required')">
+                        Type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="Quantity" formControlName="quantity">
+                    <mat-error *ngIf="handleError('quantity', 'required')">
+                        You must provide a<strong> quantity</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="Price" formControlName="price">
+                    <mat-error *ngIf="handleError('price', 'required')">
+                        You must provide a<strong> price</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+
+            </div>
+        </mat-card>
+
+
+        <mat-card>
+            <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                    <button mat-flat-button color="warn">Submit</button>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>

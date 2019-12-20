@@ -1,5 +1,4 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary" class="header">
+<mat-toolbar color="primary" class="header doNotPrint">
     <div>Product Records</div>
     <span class="nav-tool-items">
     <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
@@ -7,8 +6,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <!-- Sidenav -->
-    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true" [fixedTopGap]>
+    <mat-sidenav class="doNotPrint" #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true" [fixedTopGap]>
         <mat-nav-list>
             <a mat-list-item routerLinkActive="active" routerLink="/add-product">
                 <mat-icon>add</mat-icon> Add Product
@@ -21,9 +19,21 @@
             </a>
         </mat-nav-list>
     </mat-sidenav>
+    <!-- class="doNotPrint" -->
 
-    <!-- Main content -->
     <mat-sidenav-content>
+        <!-- <div class="doNotPrint" [class.isPrinting]="printService.isPrinting">
+            <div style="text-align:center">
+                <h1>
+                    Welcome to {{ title }}!
+                </h1>
+            </div>
+
+            <button (click)="onPrintInvoice()">PRINT INVOICE</button>
+
+            <router-outlet name="print"></router-outlet>
+        </div> -->
         <router-outlet></router-outlet>
+
     </mat-sidenav-content>
 </mat-sidenav-container>

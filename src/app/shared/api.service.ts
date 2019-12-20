@@ -30,8 +30,8 @@ export class ApiService {
   }
 
   // Get student
-  GetStudent(id): Observable<any> {
-    let API_URL = `${this.endpoint}/read-student/${id}`;
+  GetProduct(id): Observable<any> {
+    let API_URL = `${this.endpoint}/read-product/${id}`;
     return this.http.get(API_URL, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -51,9 +51,18 @@ export class ApiService {
     )
   }
 
+  // purchased Product
+  purchasedProduct(data): Observable<any> {
+    let API_URL = `${this.endpoint}/purchased-product`;
+    return this.http.post(API_URL, data)
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Update student
-  UpdateStudent(id, data: Product): Observable<any> {
-    let API_URL = `${this.endpoint}/update/${id}`;
+  UpdateProduct(id, data: Product): Observable<any> {
+    let API_URL = `${this.endpoint}/update-product/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

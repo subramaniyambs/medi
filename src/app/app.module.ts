@@ -19,13 +19,17 @@ import { PurchaseOrderComponent } from './components/purchase-order/purchase-ord
 // import { ProductService } from './product.service';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {NgxPrintModule} from 'ngx-print';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
     AddProductComponent,
     EditProductComponent,
     ListProductComponent,
-    PurchaseOrderComponent
+    PurchaseOrderComponent,
+    InvoiceComponent,
+    PrintLayoutComponent
   ],
   imports: [
     BrowserModule,

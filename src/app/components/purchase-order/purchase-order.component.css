@@ -2,17 +2,74 @@
     display: flex;
     flex-direction: row;
     margin-top: 12px;
+}
 
-  }
-  
-  .example-container > * {
+.example-container>* {
     width: 100%;
-  }
+}
 
-  @media print{
-    .doNotPrint{display:none !important;}
-  }
-
-  .invoice-title h2, .invoice-title h3 {
+.invoice-title h2,
+.invoice-title h3 {
     display: inline-block;
+}
+
+.invoice-title h2,
+.invoice-title h3 {
+    display: inline-block;
+}
+
+.table>tbody>tr>.no-line {
+    border-top: none;
+}
+
+.table>thead>tr>.no-line {
+    border-bottom: none;
+}
+
+.table>tbody>tr>.thick-line {
+    border-top: 2px solid;
+}
+
+
+/*New template*/
+
+#invoice {
+    padding: 30px;
+}
+
+.invoice {
+    position: relative;
+    background-color: #FFF;
+    min-height: 680px;
+    padding: 15px
+}
+
+.invoice header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3989c6
+}
+
+.invoice .company-details {
+    text-align: right
+}
+
+.invoice .company-details .name {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+@media print {
+    .printhide {
+        display: none !important;
+    }
+    .table th {
+        font-weight: bold !important;
+    }
+}
+
+@media screen {
+    .printonly {
+        display: none !important;
+    }
 }

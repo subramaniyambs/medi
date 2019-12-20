@@ -6,10 +6,14 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { PrintService } from 'src/app/print.service';
+import {formatDate } from '@angular/common';
 interface Bank {
   id: string;
   name: string;
 }
+
+
 
 @Component({
   selector: 'app-purchase-order',
@@ -18,7 +22,6 @@ interface Bank {
 })
 
 export class PurchaseOrderComponent implements OnInit {
-
   public bankCtrl: FormControl = new FormControl();
   filterDataArr = [];
   resultData;
@@ -45,7 +48,7 @@ export class PurchaseOrderComponent implements OnInit {
     // {name: 'Bank R (Germany)', id: 'R'} 
   ]
 
-  typesProduct: any = ['Tablets', 'Syrup', 'oinments'];
+  typesProduct: any = ['Tablets', 'Syrup','Capsule', 'oinments'];
   public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
 
   // @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
@@ -54,12 +57,15 @@ export class PurchaseOrderComponent implements OnInit {
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
   PurchaseOrderList: any = [];
-  dataSource: MatTableDataSource<Product>;
+  //dataSource: MatTableDataSource<Product>;
+  dataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['Product_name', 'quantity', 'price', 'total', 'action'];
-  displayedGstColumns: string[] = ['Product_name', 'quantity', 'price', 'total', 'action'];
-
-  constructor(private studentApi: ApiService) {
+  today= new Date();
+  jstoday = '';
+  formToday = '';
+  billedTo;
+  constructor(private studentApi: ApiService,public printService: PrintService) {
     // this.studentApi.GetProducts().subscribe((data:any) => {
     //   this.PurchaseOrderList = data.data;
     //   this.dataSource = new MatTableDataSource<Product>(this.PurchaseOrderList);
@@ -67,6 +73,9 @@ export class PurchaseOrderComponent implements OnInit {
     //     this.dataSource.paginator = this.paginator;
     //   }, 0);
     // })    
+
+    this.jstoday = formatDate(this.today, 'dd-MM-yyyy', 'en-US', '+0530');
+     this.formToday = formatDate(this.today, 'dd-MM hh:mm:ss a', 'en-US', '+0530');
   }
 
 
@@ -84,6 +93,67 @@ export class PurchaseOrderComponent implements OnInit {
     //     this.filterBanks();
     //   });
   }
+
+  // onPrintInvoice() {
+  //   const invoiceIds = ['101'];
+  //   this.printService
+  //     .printDocument('invoice', invoiceIds);
+  // }
+
+  // formBillNum(){
+  //   let val = this.formToday.replace(/[^a-zA-Z ]/g, "");
+  //   return  val 
+  // }
+  onPrintInvoice1() {
+    this.studentApi.purchasedProduct(this.dataSource).subscribe((data: any) => {
+    })
+    // const invoiceIds = ['101'];
+    // this.printService
+    //   .printDocument('invoice', invoiceIds);
+  }
+
+  onPrintInvoice()
+  {
+    this.savePurchasedDetails();
+  window.print();
+  } 
+
+  savePurchasedDetails(){
+    console.log(this.dataSource)
+    let obj ={
+      customer:this.billedTo,
+      SGST:this.getStateGST(),
+      CGST:this.getCentralGST(),
+      TotalAmt:this.getOverAllTotal(),
+      Data:this.dataSource
+    }
+    this.studentApi.purchasedProduct(obj).subscribe((data: any) => {
+    })
+  }
+
+//   onPrintInvoice(): void {
+//     let printContents, popupWin;
+//     printContents = document.getElementById('print-section').innerHTML;
+//     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+//     popupWin.document.open();
+//     popupWin.document.write(`
+//       <html>
+//         <head>
+//           <title>Print taasddddddddddb</title>
+//           <style>
+
+//           //........Customized style.......
+//           </style>
+//         </head>
+//     <body onload="window.print();window.close()">
+//     <span>helloooooooooo</span>
+//     ${printContents}
+//     ${printContents}
+//     </body>
+//       </html>`
+//     );
+//     popupWin.document.close();
+// }
 
   ngAfterViewInit() {
     this.setInitialValue();
@@ -118,20 +188,27 @@ export class PurchaseOrderComponent implements OnInit {
     // this.bankCtrl.getValue()
     console.log(selectVal)
     console.log(this.bankFilterCtrl.value)
-    this.resultData = this.resultData.filter(
-      data => data._id === selectVal);
-    this.filterDataArr.push({ product_name: selectVal, price: "20", quantity: "33", type: "Tablets", total: "0" })
+    // this.resultData = this.resultData.filter(
+    //   data => data._id === selectVal);
+    this.filterDataArr.push({ product_name: "test", price: "20", quantity: "33", type: "Tablets", total: "0" })
     this.PurchaseOrderList = this.filterDataArr;
-    this.dataSource = new MatTableDataSource<Product>(this.PurchaseOrderList);
+    //this.dataSource = new MatTableDataSource<Product>(this.PurchaseOrderList);
+    this.dataSource = this.PurchaseOrderList;
   }
+
+  
 
   deleteProduct(index, data) {
     this.PurchaseOrderList.splice(index, 1);
-    this.dataSource = new MatTableDataSource<Product>(this.PurchaseOrderList);
+    this.dataSource = this.PurchaseOrderList;
+    //this.dataSource = new MatTableDataSource<Product>(this.PurchaseOrderList);
   }
 
   calculateTotal(element) {
-    return element.price * element.quantity
+    
+    // return element.price * element.quantity
+    let Quantity = element.Qty ? element.Qty : 0;
+    return element.price * Quantity;
   }
 
   submitOrder() {
@@ -140,7 +217,7 @@ export class PurchaseOrderComponent implements OnInit {
   }
 
   getTotalCost() {
-    return this.PurchaseOrderList.map(element => element.price * element.quantity).reduce((acc, value) => acc + value, 0);
+    return this.PurchaseOrderList.map(element => element.price * element.Qty).reduce((acc, value) => acc + value, 0);
   }
 
   getStateGST() {
