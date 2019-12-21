@@ -1,7 +1,8 @@
-<!-- Title group  -->
 <div class="title-group">
-    <h1 class="mat-h1">Purchase Order List</h1>
-    <mat-divider fxFlex="1 0"></mat-divider>
+    <h1 class="mat-h1 doNotPrint">Purchase Order List</h1>
+    <h1 class="mat-h1 alignCenter" >SANKARA PHARMACY</h1>
+    <span class="alignAddr">23/9, Rajaji street, Chrompet, Chennai-600044</span>
+    <mat-divider doNotPrint fxFlex="1 0"></mat-divider>
 </div>
 
 <p *ngIf="PurchaseOrderList.length <= 0" class="no-data">There is no Product added yet!</p>
@@ -53,54 +54,22 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div id="print-section" style="width: 100%;" class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- <div class="invoice-title">
-                <h2>Invoice</h2>
-                <h3 class="pull-right">Order # 12345</h3>
-            </div> -->
-            <hr>
-            <div class="row">
-                <div class="col-xs-6">
-                    <address>
-                    <strong>Billed To:</strong><br>
-                    <input type="text"  [(ngModel)]="billedTo" placeholder="{{billedTo}}">
-                        <!-- John Smith<br> -->
-                        <br>
-    					<!-- 1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321 -->
-    				</address>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <address>
-        			<!-- <strong>Bill No:</strong> {{formBillNum()}}<br> -->
-                        <!-- Jane Smith<br> -->
-                        <strong>Bill Date:</strong> {{jstoday}}<br>
-                        <!-- Jane Smith<br> -->
-    					<!-- 1234 Main<br>
-    					Apt. 4B<br>
-    					Springfield, ST 54321 -->
-    				</address>
-                </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col-xs-6">
-                    <address>
-    					<strong>Payment Method:</strong><br>
-    					Visa ending **** 4242<br>
-    					jsmith@email.com
-    				</address>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <address>
-    					<strong>Order Date:</strong><br>
-    					March 7, 2014<br><br>
-    				</address>
-                </div>
-            </div> -->
+    <div class="example-container ">
+        <div class="col-md-6">
+            <span >DL NO. : </span>324243<br>
+            <span >CASH BILL : </span>324243<br> 
+            <span >Doctor Name : </span>Dr. B.S.Karthick  
         </div>
+        <div class="col-md-6 " style="text-align: right;">
+            <strong>Billed To: </strong>
+            <input type="text" style="text-align: center;"  [(ngModel)]="billedTo" placeholder="{{billedTo}}">
+            <br>
+                <strong>Bill Date: </strong> {{jstoday}}
+        </div>
+        
+    
     </div>
+   
 
     <div class="row">
         <div class="col-md-12">
@@ -113,10 +82,12 @@
                         <table *ngIf="dataSource" class="table table-condensed">
                             <thead>
                                 <tr>
-                                    <td><strong>Item</strong></td>
-                                    <td class="text-center"><strong>Price</strong></td>
                                     <td class="text-center"><strong>Quantity</strong></td>
+                                    <td><strong>Particulars</strong></td>
+                                    <td><strong>Batch</strong></td>
+                                    <td class="text-center"><strong>Price</strong></td>
                                     <td class="text-center doNotPrint"><strong>In-stock Quantity</strong></td>
+                                    <td><strong>Exp</strong></td>
                                     <td class="text-right"><strong>Totals</strong></td>
                                     <td class="text-right doNotPrint"><strong>Actions</strong></td>
                                 </tr>
@@ -124,16 +95,20 @@
                             <tbody>
                                 <!-- foreach ($order->lineItems as $line) or some such thing here -->
                                 <tr *ngFor="let col of dataSource; let i = index">
-                                    <td>{{col.product_name}}</td>
-                                    <td class="text-center">{{col.price}}</td>
                                     <td class="text-center"><input type="text" class="doNotPrint" [(ngModel)]="col.Qty" placeholder="{{col.Qty}}">{{col.Qty}}</td>
+                                    <td>{{col.product_name}}</td>
+                                    <td>{{col.batch}}</td>
+                                    <td class="text-center">{{col.price}}</td>
                                     <td class="text-center doNotPrint">{{col.quantity}}</td>
+                                    <td>{{col.expDate}}</td>
                                     <td class="text-right">{{calculateTotal(col)}}</td>
                                     <td class="doNotPrint" class="text-right">
                                         <button class="doNotPrint" mat-raised-button color="accent" (click)="deleteProduct(i,col)">Delete</button>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
                                     <td class="thick-line"></td>
@@ -144,6 +119,8 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>SGST</strong></td>
                                     <td class="no-line text-right">{{getStateGST() | number : '1.2-2'}}</td>
                                 </tr>
@@ -151,10 +128,14 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>CGST</strong></td>
                                     <td class="no-line text-right">{{getCentralGST() | number : '1.2-2'}}</td>
                                 </tr>
                                 <tr>
+                                    <td class="no-line"></td>
+                                    <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>

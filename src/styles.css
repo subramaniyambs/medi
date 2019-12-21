@@ -186,3 +186,9 @@ body .push-right {
         visibility: visible !important;
     }
 }
+
+@media screen {
+    .printonly {
+        display: none !important;
+    }
+}

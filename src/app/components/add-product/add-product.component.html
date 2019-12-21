@@ -38,6 +38,19 @@
                         You must provide a<strong> product name</strong>
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Batch name" formControlName="batch">
+                    <mat-error *ngIf="handleError('batch', 'required')">
+                        You must provide a<strong> Batch name</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Exp Date" formControlName="expDate">
+                    <mat-error *ngIf="handleError('expDate', 'required')">
+                        You must provide a<strong> Expire Date name</strong>
+                    </mat-error>
+                </mat-form-field>
+               
                 <mat-form-field>
                     <mat-label>Type</mat-label>
                     <mat-select [(value)]="selected" formControlName="type">
@@ -60,6 +73,24 @@
                     <input type="number" matInput placeholder="Price" formControlName="price">
                     <mat-error *ngIf="handleError('price', 'required')">
                         You must provide a<strong> price</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="SGST" formControlName="SGST">
+                    <mat-error *ngIf="handleError('SGST', 'required')">
+                        You must provide a<strong> SGST</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="GST" formControlName="GST">
+                    <mat-error *ngIf="handleError('GST', 'required')">
+                        You must provide a<strong> GST</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input type="number" matInput placeholder="HSN" formControlName="hsn">
+                    <mat-error *ngIf="handleError('hsn', 'required')">
+                        You must provide a<strong> hsn</strong>
                     </mat-error>
                 </mat-form-field>
 

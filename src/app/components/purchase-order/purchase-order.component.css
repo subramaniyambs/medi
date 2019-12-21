@@ -8,7 +8,13 @@
     width: 100%;
 }
 
-.invoice-title h2,
+.alignCenter{
+    text-align: center !important;
+}
+.alignAddr{
+    padding-left: 30%;
+}
+/* .invoice-title h2,
 .invoice-title h3 {
     display: inline-block;
 }
@@ -31,7 +37,7 @@
 }
 
 
-/*New template*/
+New template
 
 #invoice {
     padding: 30px;
@@ -57,19 +63,32 @@
 .invoice .company-details .name {
     margin-top: 0;
     margin-bottom: 0
-}
+} */
 
-@media print {
+/* @media print {
     .printhide {
         display: none !important;
     }
     .table th {
         font-weight: bold !important;
     }
-}
+} */
 
-@media screen {
-    .printonly {
-        display: none !important;
-    }
-}
+
+
+table, td, th {  
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    /* padding: 5px; */
+    padding: 0px;
+    font-size: 14px;
+    text-align: center
+  }

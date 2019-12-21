@@ -44,7 +44,12 @@ export class EditProductComponent implements OnInit {
         product_name: [data.product_name, [Validators.required]],
         price: [data.price, [Validators.required]],
         quantity: [data.quantity, [Validators.required]],
-        type: [data.type]
+        type: [data.type],
+        batch: [data.batch, [Validators.required]],
+        expDate: [data.expDate, [Validators.required]],
+        SGST: [data.SGST, [Validators.required]],
+        GST: [data.GST, [Validators.required]],
+        hsn: [data.hsn, [Validators.required]]
         
       })      
     })    
@@ -56,7 +61,12 @@ export class EditProductComponent implements OnInit {
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      type: ['', [Validators.required]]
+      type: ['', [Validators.required]],
+      batch: ['', [Validators.required]],
+        expDate: ['', [Validators.required]],
+        SGST: ['', [Validators.required]],
+        GST: ['', [Validators.required]],
+        hsn: ['', [Validators.required]]
       // subjects: [this.subjectArray],
       // dob: ['', [Validators.required]],
       // gender: ['Male']
@@ -104,7 +114,7 @@ export class EditProductComponent implements OnInit {
       var id = this.actRoute.snapshot.paramMap.get('id');
       this.productApi.UpdateProduct(id,this.productForm.value).subscribe(res => {
         this.productApi.notification$.next('Added Successfully');
-        this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
+        this.ngZone.run(() => this.router.navigateByUrl('/products-list'))
       });
     }
   }

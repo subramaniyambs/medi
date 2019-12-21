@@ -12,7 +12,7 @@ export class ListProductComponent implements OnInit {
   ProductData: any = [];
   dataSource: MatTableDataSource<Product>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['Product_name', 'quantity', 'price', 'type','action'];
+  displayedColumns: string[] = ['Product_name', 'quantity', 'price', 'type','batch','expDate','action'];
 
   constructor(private productApi: ApiService) {
     this.productApi.GetProducts().subscribe((data:any) => {

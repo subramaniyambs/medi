@@ -74,9 +74,14 @@ export class AddProductComponent implements OnInit {
   submitBookForm() {
     this.productForm = this.fb.group({
       product_name: ['', [Validators.required]],
+      batch: ['', [Validators.required]],
+      expDate: ['', [Validators.required]],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      type: ['', [Validators.required]]
+      type: ['', [Validators.required]],
+      SGST: ['', [Validators.required]],
+      GST: ['', [Validators.required]],
+      hsn: ['', [Validators.required]]
       // subjects: [this.subjectArray],
       // dob: ['', [Validators.required]],
       // gender: ['Male']
@@ -124,7 +129,7 @@ export class AddProductComponent implements OnInit {
       console.log(this.productForm.value)
       this.productApi.AddProduct(this.productForm.value).subscribe(res => {
         this.productApi.notification$.next('Added Successfully');
-        this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
+        this.ngZone.run(() => this.router.navigateByUrl('/products-list'))
       });
     }
   }
